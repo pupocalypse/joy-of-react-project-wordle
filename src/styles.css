@@ -107,6 +107,37 @@ h1 {
   font-size: 2rem;
 }
 
+.keyboard {
+  /* TODO */
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.keyboard-row:not(:first-of-type) {
+  margin-top: 0.25rem;
+}
+
+.key {
+  background: var(--color-gray-900);
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2.5rem;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.25rem;
+}
+
+.backspace,
+.enter {
+  width: 3.5rem;
+}
+
 /*
   Round the corners for the 4 cells at the very corners of
   the game board
@@ -124,17 +155,20 @@ h1 {
   --radius: 0px 0px 0px 4px;
 }
 
-.cell.correct {
+.cell.correct,
+.key.correct {
   background: var(--color-success);
   border-color: var(--color-success);
   color: white;
 }
-.cell.incorrect {
+.cell.incorrect,
+.key.incorrect {
   background: var(--color-gray-300);
   border-color: var(--color-gray-300);
   color: white;
 }
-.cell.misplaced {
+.cell.misplaced,
+.key.misplaced {
   background: var(--color-warning);
   border-color: var(--color-warning);
   color: white;

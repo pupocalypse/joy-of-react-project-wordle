@@ -55,7 +55,7 @@ function Game() {
     setGuesses(newGuesses);
     setTurn(turn + 1);
 
-    return true;
+    return newGuesses;
   };
 
   return (
