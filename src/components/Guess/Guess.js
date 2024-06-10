@@ -7,7 +7,13 @@ function Guess({ guess }) {
   return (
     <p className="guess">
       {cellRange.map((cellIndex) => (
-        <span className="cell">{guess?.[cellIndex]}</span>
+        <span
+          className={
+            guess?.[cellIndex] ? `cell ${guess[cellIndex].status}` : "cell"
+          }
+        >
+          {guess?.[cellIndex].letter}
+        </span>
       ))}
     </p>
   );
