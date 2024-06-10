@@ -4,6 +4,7 @@ import { sample } from "../../utils";
 import { WORDS } from "../../data";
 
 import GuessInput from "../GuessInput/GuessInput";
+import GuessList from "../GuessList/GuessList";
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -40,14 +41,19 @@ function Game() {
       return;
     }
 
-    const newGuesses = [...guesses, guess];
+    const newGuesses = [...guesses, { id: crypto.randomUUID(), label: guess }];
     setGuesses(newGuesses);
     setTurn(turn + 1);
 
     return true;
   };
 
-  return !isFinished && <GuessInput handleSubmitGuess={handleSubmitGuess} />;
+  return (
+    <>
+      <GuessList guesses={guesses} />
+      {!isFinished && <GuessInput handleSubmitGuess={handleSubmitGuess} />}
+    </>
+  );
 }
 
 export default Game;
