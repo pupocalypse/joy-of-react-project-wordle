@@ -6,8 +6,11 @@ function GuessInput({ handleSubmitGuess }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    handleSubmitGuess(guess);
-    setGuess("");
+    const success = handleSubmitGuess(guess);
+
+    if (success) {
+      setGuess("");
+    }
   };
 
   return (
