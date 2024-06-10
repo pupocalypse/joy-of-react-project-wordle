@@ -7,6 +7,7 @@ import GuessInput from "../GuessInput/GuessInput";
 import GuessList from "../GuessList/GuessList";
 import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 import { checkGuess } from "../../game-helpers";
+import Banner from "../Banner/Banner";
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -16,7 +17,9 @@ console.info({ answer });
 function Game() {
   const [turn, setTurn] = useState(1);
   const [guesses, setGuesses] = useState([]);
-  const isFinished = turn > NUM_OF_GUESSES_ALLOWED;
+  const [youWon, setYouWon] = useState(false);
+
+  const maxTurnsReached = turn > NUM_OF_GUESSES_ALLOWED;
 
   const handleSubmitGuess = (guess) => {
     // disallow non-word characters, eg. numbers, hyphens, periods...
@@ -44,6 +47,10 @@ function Game() {
 
     const guessStatus = checkGuess(guess, answer);
 
+    if (guessStatus.every((char) => char.status === "correct")) {
+      setYouWon(true);
+    }
+
     const newGuesses = [...guesses, guessStatus];
     setGuesses(newGuesses);
     setTurn(turn + 1);
@@ -54,7 +61,13 @@ function Game() {
   return (
     <>
       <GuessList guesses={guesses} />
-      {!isFinished && <GuessInput handleSubmitGuess={handleSubmitGuess} />}
+      {(maxTurnsReached || youWon) && (
+        <Banner guessCount={turn - 1} answer={answer} />
+      )}
+      <GuessInput
+        handleSubmitGuess={handleSubmitGuess}
+        isDisabled={maxTurnsReached || youWon}
+      />
     </>
   );
 }
